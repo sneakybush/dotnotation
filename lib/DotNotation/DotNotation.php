@@ -74,10 +74,13 @@ class DotNotation implements ArrayAccess
         
         $result = explode ($dot, $path);
         
-        return array_filter ($result, function ($element)
+        $result = array_filter ($result, function ($element)
         {
             return (boolean) $element;
         });
+        
+        // updating indexes...
+        return array_values ($result);
     }
 }
 

@@ -58,18 +58,14 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
             // path     => expected result 
             'foo'       => ['foo']          ,
             'foo.bar'   => ['foo', 'bar']   ,
+            '.foo.bar.' => ['foo', 'bar']   ,
         ];
         
         foreach ($samples as $path => $expectedResult)
         {
             $this->assertEquals ($expectedResult, 
                     $this->dot ()->_parsePath ($path));
-        }
-        
-        // it doesn't work inside the above foreach loop
-        // @working_on_it
-        
-        $this->assertCount (2, $this->dot ()->_parsePath ('.foo.bar.'));
+        }        
     }
 }
 
