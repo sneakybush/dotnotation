@@ -3,6 +3,8 @@
 /*
  * This file is a part of DotNotation
  * Please check the LICENSE file for more info 
+ * 
+ * This file is not completed just yet; I have no time to do that
  */
 
 class DotNotationTest extends PHPUnit_Framework_TestCase

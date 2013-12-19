@@ -49,13 +49,11 @@ class DotNotation implements ArrayAccess
 
     public function offsetSet ($offset, $value)
     {
-        $this->checkAccess ();
         $this->set ($offset, $value);
     }
 
     public function offsetUnset ($offset)
     {
-        $this->checkAccess ();
         $this->remove ($offset);
     }
 
@@ -90,6 +88,8 @@ class DotNotation implements ArrayAccess
     
     public function merge ($data)
     {
+        $this->checkAccess ();
+        
         if ( $data instanceof DotNotation )
         {
             $data = $data->root ();
@@ -107,6 +107,8 @@ class DotNotation implements ArrayAccess
     
     public function from ($content, $dataType = null)
     {
+        $this->checkAccess ();
+        
         if ( $content instanceof DotNotation )
         {
             $content = $content->root ();
@@ -225,12 +227,12 @@ class DotNotation implements ArrayAccess
     
     public function set ($path, $value)
     {
-        
+        $this->checkAccess ();
     }
     
     public function remove ($path)
     {
-        
+        $this->checkAccess ();
     }
 }
 
