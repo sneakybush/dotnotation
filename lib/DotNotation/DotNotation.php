@@ -117,7 +117,36 @@ class DotNotation implements ArrayAccess
     
     public function to ($dataType)
     {
+        switch ($dataType)
+        {
+            
+            case (DotNotation::PHP_ARRAY) :
+                
+                $result = $this->root ();
+                
+            break;
         
+            case (DotNotation::JSON) :
+            
+                $result = json_encode ($this->root ());
+                
+            break;    
+        
+            case (DotNotation::PHP_SERIALIZED) :
+                
+                $result = serialize ($this->root ());
+                
+            break;    
+        
+            default:
+                
+                throw new UnexpectedValueException ();
+                
+            break;    
+        
+        }
+        
+        return $result;
     }
     
     // the "heart" of DotNotation
