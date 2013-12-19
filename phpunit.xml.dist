@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit 
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         bootstrap="tests/bootstrap.php"
+>
+    <testsuites>
+        <testsuite name="DotNotation Test Suite">
+            <directory suffix=".php">./tests/DotNotation/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
