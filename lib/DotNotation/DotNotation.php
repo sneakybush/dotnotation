@@ -82,5 +82,25 @@ class DotNotation implements ArrayAccess
         // updating indexes...
         return array_values ($result);
     }
+    
+    // returns value or throws an exception
+    public function _get ($data , array $path )
+    {
+        $pointer = $data;
+        
+        foreach ($path as $element)
+        {
+            if ( isset ( $pointer [$element] ) )
+            {
+                $pointer = $pointer [$element];
+            }
+             else
+            {
+                throw new UnexpectedValueException ();
+            }
+        }
+        
+        return $pointer;
+    }
 }
 

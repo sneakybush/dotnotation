@@ -67,5 +67,41 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
                     $this->dot ()->_parsePath ($path));
         }        
     }
+    
+    /**
+     * @expectedException UnexpectedValueException
+     */
+    
+    public function testGetMethodValidation ()
+    {
+        $this->dot ()->_get ([], ['foo']);
+    }
+    
+    public function testGetMethod ()
+    {
+        $sampleStructure = 
+        [
+            'foo' =>
+            [
+                'bar' => 
+                [
+                    'cats' => 42,
+                    'dogs' => 43,
+                ]
+            ],
+            
+            'photos' => 'food',
+        ];
+        
+        $this->assertEquals (
+                $sampleStructure ['photos'], 
+                $this->dot ()->_get ($sampleStructure, ['photos'])
+        );
+        
+        $this->assertEquals (
+                $sampleStructure ['foo']['bar']['cats'], 
+                $this->dot ()->_get ($sampleStructure, ['foo', 'bar', 'cats'])
+        );
+    }
 }
 
