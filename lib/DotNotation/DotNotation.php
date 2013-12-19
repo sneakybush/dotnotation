@@ -3,6 +3,9 @@
 /*
  * This file is a part of DotNotation
  * Please check the LICENSE file for more info 
+ * 
+ * I use public methods instead of private/protected 
+ * in purpose of better testing
  */
 
 /**
@@ -17,7 +20,7 @@ class DotNotation implements ArrayAccess
     private $_data = [];
     
     // prevents the data from being changed externally
-    private $_readOnly;
+    private $_readOnly = false;
     
     // supported data types 
     // avoid 1 & 0 in constants, variables and such things
@@ -51,14 +54,40 @@ class DotNotation implements ArrayAccess
 
     public function offsetSet ($offset, $value)
     {
+        $this->checkAccess ();
         $this->set ($offset, $value);
     }
 
     public function offsetUnset ($offset)
     {
+        $this->checkAccess ();
         $this->remove ($offset);
     }
 
+    public function readOnly ($value = null)
+    {
+        if ( is_null ($value) )
+        {
+            return $this->_readOnly;
+        }
+        elseif ( is_bool ($value) )
+        {
+            $this->_readOnly = $value;
+        }
+        else
+        {
+            throw new InvalidArgumentException ();
+        }
+    }
+    
+    public function checkAccess ()
+    {
+        if ( $this->readOnly () )
+        {
+            throw new LogicException ();
+        }
+    }
+    
     public function root ()
     {
         return (array) $this->_data;
