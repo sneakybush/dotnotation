@@ -235,11 +235,17 @@ class DotNotation implements ArrayAccess
     public function set ($path, $value)
     {
         $this->checkAccess ();
+        
+        $path = $this->_parsePath ($path);
+        
+        // later
     }
     
     public function remove ($path)
     {
         $this->checkAccess ();
+        
+        // working on you
     }
 }
 
