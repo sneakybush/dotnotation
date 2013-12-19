@@ -95,7 +95,19 @@ class DotNotation implements ArrayAccess
     
     public function merge ($data)
     {
-        
+        if ( $data instanceof DotNotation )
+        {
+            $data = $data->root ();
+        }
+                
+        if ( is_array ($data) )
+        {
+            $this->_data = array_merge ($this->_data, $data);
+        }
+         else
+        {
+            throw new InvalidArgumentException ();
+        }
     }
     
     public function from ($content, $dataType)
