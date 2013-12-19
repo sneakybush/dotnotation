@@ -110,9 +110,44 @@ class DotNotation implements ArrayAccess
         }
     }
     
-    public function from ($content, $dataType)
+    public function from ($content, $dataType = null)
     {
+        if ( $content instanceof DotNotation )
+        {
+            $content = $content->root ();
+        }
         
+        if ( is_array ($content) )
+        {
+            $this->_data = $content;
+            return true;
+        }
+        
+        // $content is not a DotNotation object and $dataType is not set 
+        if ( is_null ($dataType) )
+        {
+            throw new InvalidArgumentException ();
+        }
+        
+        switch ($dataType)
+        {
+            case (DotNotation::PHP_SERIALIZED) :
+                
+                $this->_data = unserialize ($content);
+                
+            break;    
+            
+            case (DotNotation::JSON) :
+                
+                $this->_data = json_decode ($content);
+                
+            break;    
+        
+            default:
+                
+                throw new InvalidArgumentException ();  
+                
+        }        
     }
     
     public function to ($dataType)
@@ -140,9 +175,7 @@ class DotNotation implements ArrayAccess
         
             default:
                 
-                throw new UnexpectedValueException ();
-                
-            break;    
+                throw new UnexpectedValueException ();                   
         
         }
         
