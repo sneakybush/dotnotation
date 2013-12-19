@@ -191,11 +191,18 @@ class DotNotation implements ArrayAccess
         
         $result = array_filter (explode ($dot, $path), function ($element)
         {
-            return (boolean) $element;
+            return ((boolean) $element) && ('.' != $element);
         });
         
         // updating indexes...
-        return array_values ($result);
+        $result = array_values ($result);
+        
+        if (0 == count ($result))
+        {
+            throw new InvalidArgumentException ();
+        }
+        
+        return $result;
     }
     
     // returns value or throws an exception
