@@ -23,11 +23,53 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
     private function dot ()
     {
         return $this->_dotNotation; // easier to change
+    }    
+    
+    public function testParsePathValidation ()
+    {
+        $wrongData = 
+        [
+            null ,
+            ''   ,
+            // add more if you wish
+        ];
+        
+        $catchedExceptions = 0;
+        
+        foreach ($wrongData as $data)
+        {
+            try
+            {
+                $this->dot ()->_parsePath ($data);
+            } 
+            catch (Exception $exception)
+            {
+                $catchedExceptions ++;
+            }
+        }
+        
+        $this->assertEquals (count ($wrongData), $catchedExceptions);
     }
     
-    public function testArrayAccessImplementation ()
+    public function testParsePath ()
     {
+        $samples = 
+        [
+            // path     => expected result 
+            'foo'       => ['foo']          ,
+            'foo.bar'   => ['foo', 'bar']   ,
+        ];
         
+        foreach ($samples as $path => $expectedResult)
+        {
+            $this->assertEquals ($expectedResult, 
+                    $this->dot ()->_parsePath ($path));
+        }
+        
+        // it doesn't work inside the above foreach loop
+        // @working_on_it
+        
+        $this->assertCount (2, $this->dot ()->_parsePath ('.foo.bar.'));
     }
 }
 

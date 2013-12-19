@@ -5,6 +5,7 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          bootstrap="tests/bootstrap.php"
+         colors="true"
 >
     <testsuites>
         <testsuite name="DotNotation Test Suite">
