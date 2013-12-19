@@ -8,11 +8,6 @@
  * in purpose of better testing
  */
 
-/**
- * @package DotNotation
- * @author Ilya
- */
-
 class DotNotation implements ArrayAccess
 {
     
