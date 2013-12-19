@@ -157,11 +157,9 @@ class DotNotation implements ArrayAccess
             throw new InvalidArgumentException ();
         }
         
-        $dot = '.';
+        $dot = '.';        
         
-        $result = explode ($dot, $path);
-        
-        $result = array_filter ($result, function ($element)
+        $result = array_filter (explode ($dot, $path), function ($element)
         {
             return (boolean) $element;
         });
