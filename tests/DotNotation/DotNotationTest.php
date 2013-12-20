@@ -245,5 +245,34 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
         
         $this->assertEquals ($structure, $this->dot ()->root ());
     }
+    
+    /**
+     * @expectedException UnexpectedValueException
+     */
+    
+    public function testToMethodValidation ()
+    {
+        $this->dot ()->to (null);
+    }
+    
+    public function testToMethod ()
+    {
+        $structure = ['foo' => 'bar'];        
+        $this->dot ()->from ($structure);
+        
+        $this->assertEquals (json_encode ($structure),
+                                $this->dot ()->to (DotNotation::JSON));
+        
+        $this->assertEquals (serialize ($structure),
+                            $this->dot ()->to (DotNotation::PHP_SERIALIZED));
+        
+        $this->assertEquals ($structure, 
+                                $this->dot ()->to (DotNotation::PHP_ARRAY));
+    }
+    
+    public function testArrayAccessImplementation ()
+    {
+        
+    }
 }
 
