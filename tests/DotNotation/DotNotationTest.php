@@ -105,5 +105,33 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
                 $this->dot ()->_get ($sampleStructure, ['foo', 'bar', 'cats'])
         );
     }
+    
+    public function testReadOnly ()
+    {
+        $this->dot ()->from (['my_private_cookies']);
+        
+        // nobody will ever get it!
+        $this->dot ()->readOnly (true);
+        
+        $methods = ['remove', 'set', 'merge', 'from'];
+        
+        $exceptionsCounter = 0;
+        
+        foreach ($methods as $method)
+        {
+            try
+            {
+                // no matter what you pass - 
+                // accessibility must be checked before performing anything
+                $this->dot ()->{$method} (null, null);
+            } 
+            catch (LogicException $exception) 
+            {
+                $exceptionsCounter ++;
+            }
+        }
+        
+        $this->assertEquals ($exceptionsCounter, count ($methods));
+    }
 }
 
