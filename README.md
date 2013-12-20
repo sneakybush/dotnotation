@@ -100,21 +100,21 @@ $dot->merge (['secret' => 42]); // merge $dot dataset with an array
 $dot->merge ( DotNotation::create (['secret' => 42]) ); // or with another instance of DotNotation
 ```
 
-### Getting the whole dataset
+### Get dataset as array
 
 ```php
 $allData = $dot->root ();
 $allData = $dot->toArray (); // the same, but more readable in some cases 
 ```
 
-### Want something different?
+### Get dataset in other formats
 
 ```php
 $allDataInJson = $dot->to (DotNotation::JSON); // returns all data stored in cool JSON format 
 $allDataSerialized = $dot->to (DotNotation::PHP_SERIALIZED); // same in a serialize()'d array 
 ```
 
-### Read Only Mode
+### Switch to read-only mode
 If you want to make `$dot` unchangeable, you should use `readOnly` method.
 
 ```php
