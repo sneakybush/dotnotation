@@ -241,6 +241,19 @@ class DotNotation implements ArrayAccess
         
         $path = $this->_parsePath ($path);
         
+        $pointer =& $this->_data;
+        
+        foreach ($path as $element)
+        {
+            if (! isset ($pointer [$element]))
+            {
+                $pointer [$element] = [];
+            }
+
+            $pointer =& $pointer [$element];
+        }
+        
+        $pointer = $value;
         
         return $this;
     }

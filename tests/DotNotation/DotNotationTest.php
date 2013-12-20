@@ -144,9 +144,9 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
             'data'   => [
                 'code'  => '007' ,
                 'stuff' => [
-                    'jeans' => 'blue'
-                ]
-            ]
+                    'jeans' => 'blue',
+                ],
+            ],
         ];
         
         $this->dot ()->from ($sample);
@@ -157,6 +157,27 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
         unset ($sample ['data']['stuff']['jeans']);
         
         $this->assertEquals ($this->dot ()->root (), $sample);
+    }
+    
+    public function testSet ()
+    {
+        // $this->dot ()->from ([]);
+        $this->dot ()
+            ->set ('foo', 'bar')
+            ->set ('some.random.stuff', 42)
+            ->set ('some.random.symbols', 'walehtyebo');
+        
+        $structure = [
+            'foo'  => 'bar',
+            'some' => [
+                'random' => [
+                    'stuff'   => 42           ,
+                    'symbols' => 'walehtyebo' ,
+                ],
+            ],
+        ];
+        
+        $this->assertEquals ($structure, $this->dot ()->root ());
     }
 }
 
