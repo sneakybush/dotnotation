@@ -54,6 +54,13 @@ $allDataSerialized = $dot->to (DotNotation::PHP_SERIALIZED); // serialize()'d ar
 ```
 
 ### Read Only Mode
+If you want to make`$dot`unchangeable, you should use `readOnly` method
 
+```php
+$dot->readOnly (); // returns the current state of $dot
+$dot->readOnly (true); // makes $dot unchangeable, passing FALSE gives the opposite result
+```
 
-
+## License
+`DotNotation` is licensed under __the MIT license__.
+Check the `LICENSE` file for more information.
