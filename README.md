@@ -1,16 +1,16 @@
 # Dot Notation
-> `This is just a proof-of-concept, so...`
+This is just a proof-of-concept, don't take it seriously. Please.
 
 ## Remember
-+ __DON'T__ use it in __production__
-+ __DON'T__ manage large datasets *(200+ elements, __too__ deeply nested)* 
++ __Don't__ use it in __production__
++ __Don't__ manage large datasets *(200+ elements, __too__ deeply nested)* 
 + You need at least `PHP 5.5` to make it work - I don't support old things
 
 ## Installation
-+ Grab it from GitHub
-+ Add to your project
++ Grab it
++ Add it to your project
 + Include `lib/DotNotation/DotNotation.php`
-+ Don't forget about the tests *(PHPUnit)* if you want to change the code (check `tests` directory and `phpunit.xml.dist` for more info
++ Don't forget about the unit-tests in case you want to modify some code (I used PHPUnit)
 
 ## Demo
 `Dot notation` is so cool. Want to take a look? Let's do this! 
@@ -30,16 +30,16 @@ $structure = [
 ];
 ```
 
-Imagine you want to get James' second name. What would you do?
+Imagine that you want to get James' second name. What would you do?
 
 
 Would you just write `$secondName = $structure ['agent']['info']['second_name'];`? 
 
 
-It looks really ugly. What about `$secondName = $structure ['agent.info.second_name'];`?
+Honestly, it looks really ugly. What about `$secondName = $structure ['agent.info.second_name'];`?
 
 
-__Looks much better, doesn't it?__
+__This one looks much better, doesn't it?__
 
 
 We can go even further and also use dot notation for *removing, declaring and changing* values
@@ -64,13 +64,13 @@ Interested now?
 
 ## Magic Explained
 
-`DotNotation` class implements `ArrayAccess` (google for more info) so you can use its instances as a typical PHP array
+Class `DotNotation` implements `ArrayAccess` so you can use its instances as PHP arrays.
 
 
-When you write `$dot ['foo.bar']`, DotNotation will parse `foo.bar`, find desired element in data storage (unique to all its instances) and give you result or throw an exception if something go wrong. 
+`DotNotation` will parse `foo.bar` , find the desired element in a data storage (which is unique to all `DotNotation` instances) and give you the result or throw an exception if something go wrong. 
 
 
-As always, magic takes many resources, so you shouldn't use `DotNotation` in production or/and with large datasets.
+As always, magic takes up way too many resources, so you shouldn't use `DotNotation` in production or/and with large datasets.
 
 ## Usage
 Creating
