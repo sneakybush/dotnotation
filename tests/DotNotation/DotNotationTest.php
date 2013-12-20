@@ -272,7 +272,30 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
     
     public function testArrayAccessImplementation ()
     {
+        $dot = $this->dot ();        
         
+        $dot ['foo.cats'] = 'bar';
+        $dot ['foo.bar'] = 42;
+        $dot ['my.favourite.fruit'] = 'apple';
+        
+        $this->assertTrue (isset ($dot ['foo.bar']));
+        $this->assertEquals (6, count ($dot->root (), COUNT_RECURSIVE));
+        
+        $this->assertEquals ($dot ['my.favourite.fruit'], 'apple');        
+        
+        unset ($dot ['foo']);
+        
+        try
+        {
+            $dot ['foo'];
+            // at least this won't stop execution
+            $this->assertTrue (false);
+        }
+        catch (Exception $ex) 
+        {
+            $this->assertTrue (true);
+        }
     }
-}
+    
+} // end DotNotationTest
 
