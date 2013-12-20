@@ -182,6 +182,11 @@ class DotNotation implements ArrayAccess
         return $result;
     }
     
+    public function toArray ()
+    {
+        return $this->to (DotNotation::PHP_ARRAY);
+    }
+    
     // the "heart" of DotNotation
     public function _parsePath ($path)
     {
