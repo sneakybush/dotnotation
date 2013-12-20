@@ -42,7 +42,7 @@ Honestly, it looks really ugly. What about `$secondName = $structure ['agent.inf
 __This one looks much better, doesn't it?__
 
 
-We can go even further and also use dot notation for *removing, declaring and changing* values
+We can go even further and also use dot notation for *removing, declaring and changing* values.
 
 ```php 
 // using the structure declared above
@@ -73,28 +73,27 @@ Class `DotNotation` implements `ArrayAccess` so you can use its instances as PHP
 As always, magic takes up way too many resources, so you shouldn't use `DotNotation` in production or/and with large datasets.
 
 ## Usage
-Creating
+First of all, create an instance.
 
 ```php
 $dot = DotNotation::create ();
 ```
-You can pass an array or another `DotNotation` object to `create` method if you want to load some data you need.
+You can pass an array or another `DotNotation` object to the `create` method if needed.
+
+### Load data
+Note that the `from` method will __override__ all existing data. 
 
 
-Or you can...
-
-### Loading existing data
-Note that `from` method will __override__ existing data.
-If you want to append your data, check out __Merge__
+If you want to append instead, see __Merge datasets__.
 
 ```php 
-$dot->from (['foo' => 'bar']); // from array
-$dot->from ( DotNotation::create (['foo' => 'bar']) ); // from DotNotation instance
-$dot->from ('your json', DotNotation::JSON); // from JSON
-$dot->from ('your serialized php array', DotNotation::PHP_SERIALIZED); // from serialize()'d array
+$dot->from (['foo' => 'bar']); // from an array
+$dot->from ( DotNotation::create (['foo' => 'bar']) ); // from a DotNotation instance
+$dot->from ('your json', DotNotation::JSON); // from a JSON schema
+$dot->from ('your serialized php array', DotNotation::PHP_SERIALIZED); // from a serialize()'d array
 ```
 
-### Merging datasets
+### Merge datasets
 
 ```php
 $dot->merge (['secret' => 42]); // merge $dot dataset with an array
@@ -105,18 +104,18 @@ $dot->merge ( DotNotation::create (['secret' => 42]) ); // or with another insta
 
 ```php
 $allData = $dot->root ();
-$allData = $dot->toArray (); // the same, but more readable I think 
+$allData = $dot->toArray (); // the same, but more readable in some cases 
 ```
 
 ### Want something different?
 
 ```php
-$allDataInJson = $dot->to (DotNotation::JSON); // cool JSON format 
-$allDataSerialized = $dot->to (DotNotation::PHP_SERIALIZED); // serialize()'d array 
+$allDataInJson = $dot->to (DotNotation::JSON); // returns all data stored in cool JSON format 
+$allDataSerialized = $dot->to (DotNotation::PHP_SERIALIZED); // same in a serialize()'d array 
 ```
 
 ### Read Only Mode
-If you want to make`$dot`unchangeable, you should use `readOnly` method
+If you want to make `$dot` unchangeable, you should use `readOnly` method.
 
 ```php
 $dot->readOnly (); // returns the current state of $dot
