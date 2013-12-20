@@ -206,5 +206,44 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
                 ->from (serialize ($structure), DotNotation::PHP_SERIALIZED);
         $this->assertEquals ($this->dot ()->root (), $structure);
     }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    
+    public function testMergeValidation ()
+    {
+        $this->dot ()->merge (null);               
+    }
+    
+    public function testMerge ()
+    {
+        $structure = [
+            'blow' => 'fish',
+            'data' => [
+                'code' => '007'
+            ]
+        ];
+        
+        $this->dot ()->from ($structure);
+        
+        $anotherDot = new DotNotation;
+        $anotherDot->from ([
+            'data' => [
+                'code' => 'unknown'
+            ]
+        ]);
+        
+        $this->dot ()->merge ([
+            'blow' => 'foobar' // I wanted to assign something different, ehh
+        ]);
+        
+        $this->dot ()->merge ($anotherDot);
+        
+        $structure ['blow'] = 'foobar';
+        $structure ['data']['code'] = 'unknown';
+        
+        $this->assertEquals ($structure, $this->dot ()->root ());
+    }
 }
 
