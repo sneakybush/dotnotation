@@ -206,15 +206,15 @@ class DotNotation implements ArrayAccess
     }
     
     // returns value or throws an exception
-    public function _get ($data , array $path )
+    public function _get ( array $path )
     {
-        $pointer = $data;
+        $pointer =& $this->_data;
         
         foreach ($path as $element)
         {
             if ( isset ( $pointer [$element] ) )
             {
-                $pointer = $pointer [$element];
+                $pointer =& $pointer [$element];
             }
              else
             {
@@ -229,7 +229,7 @@ class DotNotation implements ArrayAccess
     public function get ($path)
     {
         $path = $this->_parsePath ($path);
-        return $this->_get ($this->_data , $path);
+        return $this->_get ($path);
     }
     
     public function set ($path, $value)

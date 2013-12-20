@@ -76,7 +76,8 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
     
     public function testGetMethodValidation ()
     {
-        $this->dot ()->_get ([], ['foo']);
+        //$this->dot ()->from ([]);
+        $this->dot ()->_get (['foo']);
     }
     
     public function testGetMethod ()
@@ -95,14 +96,16 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
             'photos' => 'food',
         ];
         
+        $this->dot ()->from ($sampleStructure);
+        
         $this->assertEquals (
                 $sampleStructure ['photos'], 
-                $this->dot ()->_get ($sampleStructure, ['photos'])
+                $this->dot ()->_get (['photos'])
         );
         
         $this->assertEquals (
                 $sampleStructure ['foo']['bar']['cats'], 
-                $this->dot ()->_get ($sampleStructure, ['foo', 'bar', 'cats'])
+                $this->dot ()->_get (['foo', 'bar', 'cats'])
         );
     }
     
