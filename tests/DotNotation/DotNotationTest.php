@@ -14,7 +14,7 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
     
     public function setUp ()
     {
-        $this->_dotNotation = new DotNotation (); 
+        $this->_dotNotation = DotNotation::create (); 
     }
     
     public function tearDown ()

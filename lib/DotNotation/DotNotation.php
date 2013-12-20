@@ -26,6 +26,18 @@ class DotNotation implements ArrayAccess
     const JSON           = 3;
     const PHP_ARRAY      = 4;
     
+    public static function create ($from = null)
+    {
+        $instance = new static;
+        
+        if ( ! is_null ($from) )
+        {
+            $instance->from ($from);
+        }
+        
+        return $instance;
+    }
+    
     public function offsetExists ($offset)
     {
         // not so beautiful, thinking how to make it better 
