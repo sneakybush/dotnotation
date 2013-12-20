@@ -136,5 +136,27 @@ class DotNotationTest extends PHPUnit_Framework_TestCase
         
         $this->assertEquals ($exceptionsCounter, count ($methods));
     }
+    
+    public function testRemove ()
+    {
+        $sample = [
+            'secret' => 42    ,
+            'data'   => [
+                'code'  => '007' ,
+                'stuff' => [
+                    'jeans' => 'blue'
+                ]
+            ]
+        ];
+        
+        $this->dot ()->from ($sample);
+        
+        $this->dot ()->remove ('secret')->remove ('data.stuff.jeans');
+        
+        unset ($sample ['secret']); 
+        unset ($sample ['data']['stuff']['jeans']);
+        
+        $this->assertEquals ($this->dot ()->root (), $sample);
+    }
 }
 

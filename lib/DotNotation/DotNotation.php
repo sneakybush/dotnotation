@@ -8,6 +8,9 @@
  * in purpose of better testing
  */
 
+// temporary workaround
+class DotNotation_NullElement {}
+
 class DotNotation implements ArrayAccess
 {
     
@@ -238,14 +241,56 @@ class DotNotation implements ArrayAccess
         
         $path = $this->_parsePath ($path);
         
-        // later
+        
+        return $this;
     }
     
     public function remove ($path)
     {
         $this->checkAccess ();
         
-        // working on you
+        $path = $this->_parsePath ($path);
+        
+        $pointer =& $this->_data;
+        
+        foreach ($path as $element)
+        {
+            if ( isset ( $pointer [$element] ) )
+            {
+                $pointer =& $pointer [$element];
+            }
+             else
+            {
+                throw new UnexpectedValueException ();
+            }
+        }
+        
+        // we can't just unset () the value via $pointer
+        // google for more info
+        $pointer = (new DotNotation_NullElement);
+        
+        $this->_data = $this->_cleanData ($this->_data);
+        
+        return $this;
+    }
+    
+    // this is just way too complicated
+    // looking for better solutuion
+    public function _cleanData (array $arr)
+    {
+        foreach ($arr as $key => $element)
+        {
+            if (is_array ($element))
+            {
+                $arr [$key] = $this->_cleanData ($element);
+            }
+            elseif ($arr [$key] instanceof DotNotation_NullElement)
+            {
+                unset ($arr [$key]);
+            }
+        }
+        
+        return $arr;
     }
 }
 
