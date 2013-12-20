@@ -12,6 +12,66 @@
 + Include `lib/DotNotation/DotNotation.php`
 + Don't forget about the tests *(PHPUnit)* if you want to change the code (check `tests` directory and `phpunit.xml.dist` for more info
 
+## Demo
+`Dot notation` is so cool. Want to take a look? Let's do this! 
+
+```php
+$structure = [
+    'foo'    => 'bar',
+    'secret' => 42   ,
+    'agent'  => [
+        'code'       => '007' ,
+        'sunglasses' => 'cool',
+        'info' => [
+            'first_name'  => 'James',
+            'second_name' => 'Bond',
+        ],
+    ],
+];
+```
+
+Imagine you want to get James' second name. What would you do?
+
+
+Would you just write `$secondName = $structure ['agent']['info']['second_name'];`? 
+
+
+It looks really ugly. What about `$secondName = $structure ['agent.info.second_name'];`?
+
+
+__Looks much better, doesn't it?__
+
+
+We can go even further and also use dot notation for *removing, declaring and changing* values
+
+```php 
+// using the structure declared above
+$dot = DotNotation::create ($structure);
+
+// equals $dot ['foo']['bar'] = 42;
+$dot ['foo.bar'] = 42; // we have just used that sexy dot notation
+
+// everyone should see it!
+echo $dot ['foo.bar']; 
+
+$dot ['foo.bar'] = 43; // much better
+
+unset ($dot ['foo.bar']); // the meaning of life has been lost
+
+```
+
+Interested now?
+
+## Magic Explained
+
+`DotNotation` class implements `ArrayAccess` (google for more info) so you can use its instances as a typical PHP array
+
+
+When you write `$dot ['foo.bar']`, DotNotation will parse `foo.bar`, find desired element in data storage (unique to all its instances) and give you result or throw an exception if something go wrong. 
+
+
+As always, magic takes many resources, so you shouldn't use `DotNotation` in production or/and with large datasets.
+
 ## Usage
 Creating
 
@@ -19,6 +79,8 @@ Creating
 $dot = DotNotation::create ();
 ```
 You can pass an array or another `DotNotation` object to `create` method if you want to load some data you need.
+
+
 Or you can...
 
 ### Loading existing data
@@ -63,4 +125,6 @@ $dot->readOnly (true); // makes $dot unchangeable, passing FALSE gives the oppos
 
 ## License
 `DotNotation` is licensed under __the MIT license__.
+
+
 Check the `LICENSE` file for more information.
